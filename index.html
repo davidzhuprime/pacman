@@ -24,11 +24,10 @@
 
 </audio>
 <script>
-	var audio = document.createElement("AUDIO")
-	document.body.appendChild(audio);
-	audio.src = "s.mp3"
+	var audio = document.getElementById("myAudio");
+	document.getElementById('myAudio').muted = false;
 
-	document.body.addEventListener("mousemove", function () {
-		audio.play()
-	})
+	audio.onloadeddata = function() {
+		audio.play();
+	};
 </script>
