@@ -20,6 +20,13 @@
 	<button onclick="displayHello()">Click me</button>
 	<div id="output"></div>
 </body>
+<head>
+	<script>
+		window.onload = function() {
+			var context = new AudioContext();
+		}
+	</script>
+</head>
 <audio id="myAudio" src="s.mp3" preload="auto" loop></audio>
 <script>
 	var audio = document.getElementById("myAudio");
