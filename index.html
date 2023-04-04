@@ -20,12 +20,15 @@
 	<button onclick="displayHello()">Click me</button>
 	<div id="output"></div>
 </body>
-<audio id="myAudio" src="s.mp3" preload="auto" loop muted="muted">
+<audio id="myAudio" src="s.mp3" preload="auto" loop>
 
 </audio>
 <script>
-	var audio = document.getElementById("myAudio");
-	audio.onloadeddata = function() {
-		audio.play();
-	};
+	var audio = document.createElement("AUDIO")
+	document.body.appendChild(audio);
+	audio.src = "s.mp3"
+
+	document.body.addEventListener("mousemove", function () {
+		audio.play()
+	})
 </script>
