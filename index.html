@@ -1,32 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<script type="text/javascript" async
-			src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-	</script>
-	<div>
-		\begin{align}
-		\nabla \cdot \mathbf{E} &= \frac{\rho}{\epsilon_0} \\
-		\nabla \cdot \mathbf{B} &= 0 \\
-		\nabla \times \mathbf{E} &= -\frac{\partial \mathbf{B}}{\partial t} \\
-		\nabla \times \mathbf{B} &= \mu_0 \mathbf{J} + \mu_0\epsilon_0 \frac{\partial \mathbf{E}}{\partial t}
-		\end{align}
-	</div>
-
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Three.js Real World Scene</title>
+	<style>
+		body {
+			margin: 0;
+		}
+		canvas {
+			display: block;
+		}
+	</style>
 </head>
-<head>
-	<script src="script.js"></script>
-</head>
-<!--<body>-->
-<!--	&lt;!&ndash; Your HTML content here &ndash;&gt;-->
-<!--	<button onclick="displayHello()">Click me</button>-->
-<!--	<div id="output"></div>-->
-<!--</body>-->
-<audio id="myAudio" src="s.mp3" preload="auto" muted="muted">
-</audio>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-	var audio = document.getElementById("myAudio");
-	document.getElementById('myAudio').muted = false;
+	// Your JavaScript code goes here
+	// Create a scene
+	const scene = new THREE.Scene();
 
-	document.body.addEventListener("mousemove", function () {
-		audio.play()
-	})
+	// Create a camera
+	const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+	camera.position.z = 5;
+
+	// Create a WebGLRenderer
+	const renderer = new THREE.WebGLRenderer();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	document.body.appendChild(renderer.domElement);
+
+	// Create a ground plane
+	const planeGeometry = new THREE.PlaneGeometry(10, 10);
+	const planeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+	const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+	plane.rotation.x = Math.PI / 2;
+	scene.add(plane);
+
+	// Create a cube
+	const geometry = new THREE.BoxGeometry();
+	const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+	const cube = new THREE.Mesh(geometry, material);
+	cube.position.y = 0.5;
+	scene.add(cube);
+
+	// Resize the renderer on window resize
+	window.addEventListener('resize', () => {
+		const width = window.innerWidth;
+		const height = window.innerHeight;
+		renderer.setSize(width, height);
+		camera.aspect = width / height;
+		camera.updateProjectionMatrix();
+	});
+
+	// Animation loop
+	function animate() {
+		requestAnimationFrame(animate);
+
+		// Rotate the cube
+		cube.rotation.x += 0.01;
+		cube.rotation.y += 0.01;
+
+		renderer.render(scene, camera);
+	}
+
+	animate();
+
 </script>
+</body>
+</html>
