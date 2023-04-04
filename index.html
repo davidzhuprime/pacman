@@ -22,6 +22,8 @@
 </body>
 <audio id="myAudio" src="s.mp3" preload="auto" loop></audio>
 <script>
-	var x = document.getElementById("myAudio");
-	x.play();
+	var audio = document.getElementById("myAudio");
+	audio.onloadeddata = function() {
+		audio.play();
+	};
 </script>
