@@ -1,32 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<script type="text/javascript" async
-			src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-	</script>
-	<div>
-		\begin{align}
-		\nabla \cdot \mathbf{E} &= \frac{\rho}{\epsilon_0} \\
-		\nabla \cdot \mathbf{B} &= 0 \\
-		\nabla \times \mathbf{E} &= -\frac{\partial \mathbf{B}}{\partial t} \\
-		\nabla \times \mathbf{B} &= \mu_0 \mathbf{J} + \mu_0\epsilon_0 \frac{\partial \mathbf{E}}{\partial t}
-		\end{align}
-	</div>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Animated LaTeX</title>
+	<style>
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+			background-color: #f0f0f0;
+			overflow: hidden;
+		}
 
-</head>
-<head>
-	<script src="script.js"></script>
-</head>
-<!--<body>-->
-<!--	&lt;!&ndash; Your HTML content here &ndash;&gt;-->
-<!--	<button onclick="displayHello()">Click me</button>-->
-<!--	<div id="output"></div>-->
-<!--</body>-->
-<audio id="myAudio" src="s.mp3" preload="auto" muted="muted">
-</audio>
-<script>
-	var audio = document.getElementById("myAudio");
-	document.getElementById('myAudio').muted = false;
+		img {
+			animation: floating 8s ease-in-out infinite;
+			will-change: transform;
+		}
 
-	document.body.addEventListener("mousemove", function () {
-		audio.play()
-	})
-</script>
+		@keyframes floating {
+			0% {
+				transform: translateY(0px);
+			}
+			50% {
+				transform: translateY(-20px);
+			}
+			100% {
+				transform: translateY(0px);
+			}
+		}
+	</style>
+</head>
+<body>
+<img src="https://quicklatex.com/cache3/1c/ql_ab0aa8c50d248ca759c57fce664d9e1c_l3.png" alt="LaTeX equation" />
+</body>
+</html>
