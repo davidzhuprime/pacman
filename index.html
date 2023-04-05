@@ -57,13 +57,15 @@
 			let maxFreq = Math.max.apply(null, dataArray);
 
 			const scaleFactor = 1 + maxFreq / 255;
+			console.log('Hello, World!');
+			console.log(scaleFactor)
 			latexImage.style.transform = `scale(${scaleFactor})`;
 
 			requestAnimationFrame(updateSize);
 		}
 
 		audio.onplay = () => {
-			updateSize();
+			requestAnimationFrame(updateSize);
 		};
 	});
 </script>
