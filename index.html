@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Animated LaTeX</title>
+	<title>Extravagant Animated LaTeX</title>
 	<style>
 		body {
 			display: flex;
@@ -16,30 +16,18 @@
 		}
 
 		img {
-			animation: floating 8s ease-in-out infinite;
+			position: absolute;
 			will-change: transform;
 		}
-
-		/*@keyframes floating {*/
-		/*	0% {*/
-		/*		transform: translateY(0px);*/
-		/*	}*/
-		/*	50% {*/
-		/*		transform: translateY(-20px);*/
-		/*	}*/
-		/*	100% {*/
-		/*		transform: translateY(0px);*/
-		/*	}*/
-		/*}*/
 	</style>
 </head>
 <body>
-<img id="latexImage" src="max.png" alt="LaTeX equation" />
+<img class="latexImage" src="max.png" alt="LaTeX equation" />
 <audio id="audio" src="s.mp3" controls></audio>
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		const audio = document.getElementById('audio');
-		const latexImage = document.getElementById('latexImage');
+		const latexImages = document.getElementsByClassName('latexImage');
 
 		const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 		const audioSourceNode = audioContext.createMediaElementSource(audio);
@@ -48,7 +36,7 @@
 		audioSourceNode.connect(analyser);
 		analyser.connect(audioContext.destination);
 
-		analyser.fftSize = 32;
+		analyser.fftSize = 128;
 		const bufferLength = analyser.frequencyBinCount;
 		const dataArray = new Uint8Array(bufferLength);
 
@@ -56,11 +44,15 @@
 			analyser.getByteFrequencyData(dataArray);
 			let maxFreq = Math.max.apply(null, dataArray);
 
-			const scaleFactor = (maxFreq / 255) * 2 - 1;
-			console.log('Hello, World!');
-			console.log(scaleFactor)
-			console.log(maxFreq)
-			latexImage.style.transform = `scale(${scaleFactor})`;
+			const scaleFactor = 1 + maxFreq / 255;
+
+			for (let i = 0; i < latexImages.length; i++) {
+				const image = latexImages[i];
+				const rotation = (360 / latexImages.length) * i;
+				const xPos = (i + 1) * 40 * scaleFactor;
+				const yPos = (i + 1) * 20 * scaleFactor;
+				image.style.transform = `translate(${xPos}px, ${yPos}px) rotate(${rotation * scaleFactor}deg) scale(${scaleFactor})`;
+			}
 
 			requestAnimationFrame(updateSize);
 		}
