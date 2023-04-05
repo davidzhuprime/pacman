@@ -37,35 +37,35 @@
 <img id="latexImage" src="https://quicklatex.com/cache3/1c/ql_ab0aa8c50d248ca759c57fce664d9e1c_l3.png" alt="LaTeX equation" />
 <audio id="audio" src="s.mp3" controls></audio>
 <script>
-	// Your JavaScript code will go here
-	const audio = document.getElementById('audio');
-	const latexImage = document.getElementById('latexImage');
+	document.addEventListener('DOMContentLoaded', () => {
+		const audio = document.getElementById('audio');
+		const latexImage = document.getElementById('latexImage');
 
-	const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-	const audioSourceNode = audioContext.createMediaElementSource(audio);
-	const analyser = audioContext.createAnalyser();
+		const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+		const audioSourceNode = audioContext.createMediaElementSource(audio);
+		const analyser = audioContext.createAnalyser();
 
-	audioSourceNode.connect(analyser);
-	analyser.connect(audioContext.destination);
+		audioSourceNode.connect(analyser);
+		analyser.connect(audioContext.destination);
 
-	analyser.fftSize = 32;
-	const bufferLength = analyser.frequencyBinCount;
-	const dataArray = new Uint8Array(bufferLength);
+		analyser.fftSize = 32;
+		const bufferLength = analyser.frequencyBinCount;
+		const dataArray = new Uint8Array(bufferLength);
 
-	function updateSize() {
-		analyser.getByteFrequencyData(dataArray);
-		let maxFreq = Math.max.apply(null, dataArray);
+		function updateSize() {
+			analyser.getByteFrequencyData(dataArray);
+			let maxFreq = Math.max.apply(null, dataArray);
 
-		const scaleFactor = 1 + maxFreq / 255;
-		latexImage.style.transform = `scale(${scaleFactor})`;
+			const scaleFactor = 1 + maxFreq / 255;
+			latexImage.style.transform = `scale(${scaleFactor})`;
 
-		requestAnimationFrame(updateSize);
-	}
+			requestAnimationFrame(updateSize);
+		}
 
-	audio.onplay = () => {
-		requestAnimationFrame(updateSize);
-	};
-
+		audio.onplay = () => {
+			requestAnimationFrame(updateSize);
+		};
+	});
 </script>
 </body>
 </html>
