@@ -56,11 +56,11 @@
 			analyser.getByteFrequencyData(dataArray);
 			let maxFreq = Math.max.apply(null, dataArray);
 
-			const scaleFactor = 1 + maxFreq / 100;
+			const scaleFactor = (maxFreq / 255) * 2 - 1;
 			console.log('Hello, World!');
 			console.log(scaleFactor)
 			console.log(maxFreq)
-			latexImage.style.transform = `scale(${scaleFactor})`;
+			latexImage.style.transform = `scale(${1 + scaleFactor})`;
 
 			requestAnimationFrame(updateSize);
 		}
