@@ -56,7 +56,7 @@
 			analyser.getByteFrequencyData(dataArray);
 			let maxFreq = Math.max.apply(null, dataArray);
 
-			const scaleFactor = 1 + maxFreq / 255;
+			const scaleFactor = 1 + maxFreq / 100;
 			console.log('Hello, World!');
 			console.log(scaleFactor)
 			console.log(maxFreq)
