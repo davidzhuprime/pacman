@@ -1,3 +1,5 @@
+const redis = require('redis');
+
 const client = redis.createClient();
 
 document.addEventListener('DOMContentLoaded', () => {
