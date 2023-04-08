@@ -1,74 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Animated LaTeX</title>
-	<style>
-		body {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			margin: 0;
-			background-color: #f0f0f0;
-			overflow: hidden;
-		}
-
-		img {
-			animation: floating 8s ease-in-out infinite;
-			will-change: transform;
-		}
-
-		/*@keyframes floating {*/
-		/*	0% {*/
-		/*		transform: translateY(0px);*/
-		/*	}*/
-		/*	50% {*/
-		/*		transform: translateY(-20px);*/
-		/*	}*/
-		/*	100% {*/
-		/*		transform: translateY(0px);*/
-		/*	}*/
-		/*}*/
-	</style>
+	<title>Redis Example</title>
 </head>
 <body>
-<img id="latexImage" src="max.png" alt="LaTeX equation" />
-<audio id="audio" src="s.mp3" controls></audio>
-<script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const audio = document.getElementById('audio');
-		const latexImage = document.getElementById('latexImage');
-
-		const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-		const audioSourceNode = audioContext.createMediaElementSource(audio);
-		const analyser = audioContext.createAnalyser();
-
-		audioSourceNode.connect(analyser);
-		analyser.connect(audioContext.destination);
-
-		analyser.fftSize = 32;
-		const bufferLength = analyser.frequencyBinCount;
-		const dataArray = new Uint8Array(bufferLength);
-
-		function updateSize() {
-			analyser.getByteFrequencyData(dataArray);
-			let maxFreq = Math.max.apply(null, dataArray);
-
-			const scaleFactor = (maxFreq / 255) * 2 - 1;
-			// console.log('Hello, World!');
-			console.log(scaleFactor)
-			console.log(maxFreq)
-			latexImage.style.transform = `scale(${1 + scaleFactor})`;
-
-			requestAnimationFrame(updateSize);
-		}
-
-		audio.onplay = () => {
-			requestAnimationFrame(updateSize);
-		};
-	});
-</script>
+<h1>Click the button!</h1>
+<button id="myButton">Click me</button>
+<script src="functions/redisHandler.js"></script>
 </body>
 </html>
