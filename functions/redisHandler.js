@@ -1,7 +1,10 @@
 const redis = require('redis');
 
-const client = redis.createClient();
-
+const client = redis.createClient({
+    host: 'redis-10365.c282.east-us-mz.azure.cloud.redislabs.com',
+    port: 10365,
+    password: 'Vlx8vpnfkhlTcgmpwPGqeD12sxwWw45M'
+});
 document.addEventListener('DOMContentLoaded', () => {
     const button = document.getElementById('myButton');
     button.addEventListener('click', () => {
